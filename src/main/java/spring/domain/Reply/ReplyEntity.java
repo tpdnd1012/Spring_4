@@ -36,9 +36,9 @@ public class ReplyEntity extends BasTime {
 
     // 댓글 내용 업데이트
     public void update( String replycontents ){
+
         this.replycontents = replycontents;
+
     }
-
-
 
 }

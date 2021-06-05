@@ -34,4 +34,5 @@ public class ReplyDto {
                 .replyname(replyname)
                 .postid(postid).build();
     }
+
 }

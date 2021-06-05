@@ -12,7 +12,7 @@ public enum Role {
     ADMIN("ROLE_ADMIN", "관리자"),
     MEMBER("ROLE_MEMBER", "일반회원");
 
-    private final String key;
-    private final String title;
+    private final String key; // 변수
+    private final String title; // 변수
 
 }

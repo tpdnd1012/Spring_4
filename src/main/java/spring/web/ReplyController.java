@@ -14,11 +14,13 @@ public class ReplyController {
     public final ReplyService replyService;
 
     @PostMapping("/replywrite")
-    public String replywrite(ReplyDto replyDto){
+    public String replywrite(ReplyDto replyDto) {
 
         // input에 name 과 dto 의 필드명과 동일하면 자동 주입
         replyService.Replysave( replyDto );
+
         return "index";
 
     }
+
 }

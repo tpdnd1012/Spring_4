@@ -47,4 +47,5 @@ public class MemberDto {
                 .email(email)
                 .role(Role.MEMBER).build();
     }
+
 }

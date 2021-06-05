@@ -22,7 +22,7 @@ public class MemberService {
     @Transactional // javax
     public Long membersave( MemberDto memberDto ){
 
-        return memberRepository.save( memberDto.toEntity()  ).getId();
+        return memberRepository.save(memberDto.toEntity()).getId();
         // sql insert ----> save( )
     }
 
@@ -32,6 +32,7 @@ public class MemberService {
 
         // 모든 엔티티 가져오기 . findall()
         List<MemberEntity> memberEntityList = memberRepository.findAll(); // sql select -------> 모든 레코드 호출
+
         //  dto 리스트 선언
         List<MemberDto> memberDtoList = new ArrayList<>();
 
@@ -48,6 +49,7 @@ public class MemberService {
                     .password(temp.getPassword())
                     .name( temp.getName())
                     .email( temp.getEmail()).build();
+
             memberDtoList.add( memberDto);
         }
         return memberDtoList;
@@ -56,8 +58,10 @@ public class MemberService {
     // 회원 로그인
     @Transactional // javax
     public MemberDto memberlogin( MemberDto logindto){
+
         // 1. 모든 회원 가져오기
         List<MemberEntity> memberEntityList = memberRepository.findAll();
+
         // 2. 로그인에 입력된 아이디와 비밀번호 찾기 
         for( MemberEntity temp : memberEntityList ){
             if( temp.getMemberid().equals(logindto.getMemberid())
@@ -68,7 +72,9 @@ public class MemberService {
                         .memberid( temp.getMemberid() )
                         .name( temp.getName())
                         .email( temp.getEmail() ).build();
+
                 return memberDto;
+
             }
         }
         return null; // 못찾았으면 null ;
@@ -77,17 +83,21 @@ public class MemberService {
     // 회원 개별 찾기
     @Transactional // javax
     public MemberDto memberfind( String email){
+
         // 1. 해당 회원번호의 엔티티 찾기
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findByemail(email);
-        // findById 의 리턴값이 Optional
+                                                            // findByemail 의 리턴값이 Optional
+
         // 2. 찾은 엔티티 가져오기
         MemberEntity memberEntity = optionalMemberEntity.get();
+
         // 3. 엔티티 => dto로 변환후 => dto 리턴
         MemberDto memberDto = MemberDto.builder()
                 .id( memberEntity.getId() )
                 .memberid( memberEntity.getMemberid() )
                 .name( memberEntity.getName())
                 .email( memberEntity.getEmail() ).build();
+
         return  memberDto;
 
     }
@@ -101,6 +111,7 @@ public class MemberService {
         MemberEntity memberEntity = optionalMemberEntity.get();
 
         memberRepository.delete( memberEntity ); // 삭제 쿼리
+
         return  1;
     }
 
@@ -110,10 +121,13 @@ public class MemberService {
 
         // 1. db에서 회원찾기
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findByemail(email);
+
         // 2. 찾았으면 엔티티 가져오기
         MemberEntity memberEntity = optionalMemberEntity.get();
+
         // 3. 업데이트 처리 => 메소드 호출
         memberEntity.update( updateDto );
+
         return  1;
     }
 

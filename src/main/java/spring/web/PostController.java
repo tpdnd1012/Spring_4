@@ -44,47 +44,60 @@ public class PostController {
 //        return "postlist";
 
     }
+
     // 2. 게시물 등록 페이지 요청
     @GetMapping("/postwrite")
-    public String postwrite(){
+    public String postwrite() {
+
         return "postwrite"; // 타임리프 HTML 요청
+
     }
 
     // 3. 게시물 등록 처리
     @PostMapping("/postwrite")
-    public String postwrite_c( PostDto postDto ){
+    public String postwrite_c( PostDto postDto ) {
+
         postService.postsave( postDto );
+
         return "redirect:/postlist"; // URL 요청
+
     }
 
     // 4. 게시물 상세페이지 요청
     @GetMapping("/postview/{id}")
     public String postview(@PathVariable Long id  , Model model ) {
-        // 경로(url) 상에 변수 가져오기
+                            // 경로(url) 상에 변수 가져오기
         // 조회수 처리
         postService.countup(id);
+
         // 해당 게시물 출력
         PostDto postDto = postService.postget( id );
         model.addAttribute( "postDto" , postDto);
+
         // 댓글 출력하기
         List<ReplyDto> replyDtos =  replyService.replyDtoList();
         model.addAttribute("replyDtos" , replyDtos);
         // model : html에 데이터 전달 ( 모델명 , 데이터 )
+
         return "postview";
 
     }
 
     // 5. 게시물 수정 페이지 요청
     @GetMapping("/postupdate/{id}")
-    public String postupdate(@PathVariable Long id , Model model ){
+    public String postupdate(@PathVariable Long id , Model model ) {
+                                // 경로(url) 상에 변수 가져오기
+
         PostDto postDto =  postService.postget(id);
         model.addAttribute("postDto" , postDto);
+
         return "postupdate";
+
     }
 
     // 6. 게시물 수정 처리
     @PostMapping("/postupdate")
-    public String postupdate_c( PostDto updatedto ){
+    public String postupdate_c( PostDto updatedto ) {
 
         postService.postupdate(updatedto);
         return "redirect:/postlist"; // URL 요청
@@ -93,15 +106,18 @@ public class PostController {
 
     // 7. 게시물 삭제 처리
     @GetMapping("/postdelete/{id}")
-    public String postdelete( @PathVariable Long id ){
+    public String postdelete( @PathVariable Long id ) {
+
         postService.postdelete(id);
+
         return "redirect:/postlist"; // URL 요청
+
     }
 
     // 8. 검색 처리
     @PostMapping("/postsearch")
-    public String postsearch_c(HttpServletRequest request , Model model , @PageableDefault Pageable pageable){
-        // jsp 와 다르게 request 객체 만들기
+    public String postsearch_c(HttpServletRequest request , Model model , @PageableDefault Pageable pageable) {
+                                 // jsp 와 다르게 request 객체 만들기
 
         String keyword = request.getParameter("keyword");
         String search = request.getParameter("search");
@@ -110,6 +126,7 @@ public class PostController {
         if( search.equals("") ) return "redirect:/postlist";
         //        System.out.println(keyword); // request 확인
         //        System.out.println(search); // request 확인
+
         Page<PostEntity> postEntities = postService.postlist( pageable , keyword , search );
 
         model.addAttribute( "postDtos" , postEntities );

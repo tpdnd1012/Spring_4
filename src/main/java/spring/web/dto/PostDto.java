@@ -42,4 +42,5 @@ public class PostDto {
                 .name(name)
                 .count(count).build();
     }
+
 }

@@ -56,6 +56,7 @@ public class CardEntity extends BasTime {
 
     // 조회수 메소드
     public void Cardcount() {
+
         this.cardcount++;
     }
 

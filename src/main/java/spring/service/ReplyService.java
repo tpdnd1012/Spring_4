@@ -19,14 +19,19 @@ public class ReplyService {
 
     // C : 리플 생성
     public void Replysave(ReplyDto replyDto ){
+
         replyRepository.save( replyDto.toEntity());
         // 엔티티 저장
+
     }
 
     // R : 리플 출력
-    public List<ReplyDto> replyDtoList( ){
+    public List<ReplyDto> replyDtoList() {
+
         List<ReplyEntity> replyEntities =  replyRepository.findAll();     // 모든 엔티티 호출
+
         List<ReplyDto> replyDtos = new ArrayList<>();
+
         for( ReplyEntity entity : replyEntities ){   // 리스트내 모든 엔티티를 하나씩 대입
             // 엔티티 => dto
             ReplyDto replyDto = ReplyDto.builder()
@@ -34,6 +39,7 @@ public class ReplyService {
                     .replycontents(entity.getReplycontents())
                     .replyname(entity.getReplyname())
                     .postid(entity.getPostid()).build();
+
             // dto 리스트 담기
             replyDtos.add( replyDto );
         }

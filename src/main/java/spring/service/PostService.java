@@ -92,12 +92,16 @@ public class PostService {
     // 4. 조회수 처리
     @Transactional // 트랜잭션
     public void countup( Long id ){
+
         // 1.엔티티 찾기
         Optional<PostEntity> optionalPostEntity =  postRepository.findById(id);
+
         // 2. 엔티티 가져오기
         PostEntity postEntity = optionalPostEntity.get();
+
         // 3. 조회수 증가 메소드 호출
         postEntity.countup();
+
     }
 
     // 5. 게시물 수정
@@ -106,8 +110,10 @@ public class PostService {
 
         // 1. 해당 엔티티 찾기
         Optional<PostEntity> optionalPostEntity = postRepository.findById( updateDto.getId() );
+
         // 2. 엔티티 가져오기
         PostEntity postEntity = optionalPostEntity.get();
+
         // 3. 엔티티 수정처리
         postEntity.update( updateDto );
 
@@ -117,8 +123,10 @@ public class PostService {
     public void postdelete( Long id ){
         // 1. 엔티티 찾기
         Optional<PostEntity> optionalPostEntity = postRepository.findById(id);
+
         // 2. 엔티티 가져오기
         PostEntity postEntity = optionalPostEntity.get();
+
         // 3. 삭제 처리
         postRepository.delete( postEntity );
     }

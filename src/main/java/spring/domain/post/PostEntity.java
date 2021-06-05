@@ -38,13 +38,17 @@ public class PostEntity extends BasTime {
         this.name = name;
         this.count = count;
     }
+
     // 업데이트 메소드
     public void update(PostDto postDto ){
         this.title = postDto.getTitle();
         this.contents = postDto.getContents();
     }
+
     // 조회수 증가 메소드
     public void countup(){
+
         this.count++ ;
     }
+
 }

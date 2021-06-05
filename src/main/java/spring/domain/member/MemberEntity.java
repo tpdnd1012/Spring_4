@@ -33,7 +33,7 @@ public class MemberEntity extends BasTime {
     @Column // 필드
     private String email;
 
-    @Column
+    @Column // 필드
     @Enumerated(EnumType.STRING)
     Role role;
 
@@ -47,6 +47,7 @@ public class MemberEntity extends BasTime {
         this.email = email;
         this.role = role;
     }
+
     // 업데이트 메소드
     public void update(MemberDto updateDto){
         // 인수값을 현재 필드에 넣기
