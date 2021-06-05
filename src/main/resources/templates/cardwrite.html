@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/header :: header_h">
+
+</head>
+<body>
+
+        <div th:replace="/header :: header"></div>
+
+        <div class="container">
+
+            <div class="col-md-3 float-left">
+                <div th:replace="/adminmenu :: adminmenu "></div>
+            </div>
+
+            <div class="col-md-9 float-left">
+                카드 등록 페이지
+                <form action="/cardwrite" method="post" enctype="multipart/form-data">
+                    카드명 <input type="text" name="cardname">
+                    카드사 <input type="text" name="cardcompany">
+                    링크 <input type="text" name="cardlink">
+                    사진 <input type="file" name="cardpicture">
+                    <input type="submit" value="등록">
+                </form>
+            </div>
+        </div>
+
+
+</body>
+</html>

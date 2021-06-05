@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/header :: header_h">
+
+</head>
+<body>
+
+<div th:replace="/header :: header"></div>
+
+<div class="container">
+
+    <table class="table table-striped" style="text-align:center; border:solid gray 1px">
+
+        <tr>
+            <td> 제목 </td>
+            <td  colspan="2"  th:text="${postDto.title}"> ></td>
+        </tr>
+        <tr>
+            <td> 조회수 </td>
+            <td colspan="2" th:text="${postDto.count}">  </td>
+        </tr>
+        <td> 작성자 </td>
+        <td   colspan="2" th:text="${postDto.name}"></td>
+        <tr>
+            <td> 작성일 </td>
+            <td   colspan="2" th:text="${postDto.createDate}"></td>
+        </tr>
+        <tr>
+            <td> 내용 </td>
+            <td   colspan="2" th:text="${postDto.contents}"></td>
+        </tr>
+    </table>
+
+    <a class="btn btn-info" th:href="@{/postlist}">목록</a>
+
+    <div th:if="${session.loginuser !=null }">
+        <a th:if="${session.loginuser.name == postDto.name }" class="btn btn-info" th:href="@{'/postupdate/'+${postDto.id}}">수정</a>
+        <a th:if="${session.loginuser.name == postDto.name }" class="btn btn-info" th:href="@{'/postdelete/'+${postDto.id}}">삭제</a>
+    </div>
+
+    <!-- 댓글 작성 form --->
+    <form action="/replywrite" method="post">
+        <!-- 댓글 작성시 작성자[세션] , 게시물번호[현재post번호] 같이 보내기  -->
+        <input type="hidden" name="replyname" th:value="${postDto.name}">
+        <input type="hidden" name="postid" th:value="${postDto.id}">
+
+        <table>
+            <tr>
+                <td><textarea name="replycontents"></textarea></td>
+                <td><input type="submit" value="댓글등록" class="btn btn-info"></td>
+            </tr>
+        </table>
+
+    </form>
+    <!--댓글 표시 table -->
+    <table>
+        <!-- th:each = "임시객체명 : ${ controller 전달받음 모델명} -->
+        <tr th:each ="replyDto : ${replyDtos}" >
+            <td th:text="${replyDto.replycontents}"></td>
+            <td th:text="${replyDto.replyname}"></td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
