@@ -2,7 +2,9 @@ package spring.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.service.ReplyService;
 import spring.web.dto.ReplyDto;
 
@@ -13,13 +15,27 @@ public class ReplyController {
     // 서비스 연결
     public final ReplyService replyService;
 
-    @PostMapping("/replywrite")
-    public String replywrite(ReplyDto replyDto) {
+    @RequestMapping("/replywrite")
+    public String replywrite(ReplyDto replyDto, RedirectAttributes re) {
+                             // input에 name 과 dto 의 필드명과 동일하면 자동 주입
 
-        // input에 name 과 dto 의 필드명과 동일하면 자동 주입
         replyService.Replysave( replyDto );
 
-        return "index";
+        re.addAttribute("id", replyDto.getPostid());
+
+        return "redirect:/postview";
+
+    }
+
+    @GetMapping("/replydelete")
+    public String replydelete(RedirectAttributes re, @RequestParam("id") Long id, @RequestParam("postid") Long postid) {
+        // URL 요청할때 매개변수 전달
+
+        replyService.replydelete(id);
+
+        re.addAttribute("id", postid);
+
+        return "redirect:/postview";
 
     }
 

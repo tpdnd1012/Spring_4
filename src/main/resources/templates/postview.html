@@ -57,8 +57,11 @@
     <table>
         <!-- th:each = "임시객체명 : ${ controller 전달받음 모델명} -->
         <tr th:each ="replyDto : ${replyDtos}" >
-            <td th:text="${replyDto.replycontents}"></td>
-            <td th:text="${replyDto.replyname}"></td>
+            <td><input type="text" th:value="${replyDto.id}" name="id"></td>
+            <td><input type="text" th:value="${replyDto.postid}" name="postid"></td>
+            <td><input type="text" th:value="${replyDto.replycontents}" name="replycontents"></td>
+            <td><input type="text" th:value="${replyDto.replyname}" name="replyname"></td>
+            <td><a th:href="@{/replydelete(id=${replyDto.id}, postid=${replyDto.postid})}">삭제</a></td>
         </tr>
     </table>
 

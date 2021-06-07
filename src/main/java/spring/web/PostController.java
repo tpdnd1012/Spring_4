@@ -6,9 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import spring.domain.post.PostEntity;
 import spring.service.PostService;
 import spring.service.ReplyService;
@@ -64,8 +62,8 @@ public class PostController {
     }
 
     // 4. 게시물 상세페이지 요청
-    @GetMapping("/postview/{id}")
-    public String postview(@PathVariable Long id  , Model model ) {
+    @RequestMapping(value = "/postview", method = RequestMethod.GET)
+    public String postview(@RequestParam("id") Long id, Model model ) {
                             // 경로(url) 상에 변수 가져오기
         // 조회수 처리
         postService.countup(id);
@@ -75,7 +73,7 @@ public class PostController {
         model.addAttribute( "postDto" , postDto);
 
         // 댓글 출력하기
-        List<ReplyDto> replyDtos =  replyService.replyDtoList();
+        List<ReplyDto> replyDtos =  replyService.replyDtoList(postDto.getId());
         model.addAttribute("replyDtos" , replyDtos);
         // model : html에 데이터 전달 ( 모델명 , 데이터 )
 

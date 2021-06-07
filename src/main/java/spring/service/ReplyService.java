@@ -8,6 +8,7 @@ import spring.web.dto.ReplyDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service // 해당 클래스는 mvc모델에서 service 사용
 @RequiredArgsConstructor // 초기값이 없는 final 변수의 생성자 자동생성
@@ -26,9 +27,9 @@ public class ReplyService {
     }
 
     // R : 리플 출력
-    public List<ReplyDto> replyDtoList() {
+    public List<ReplyDto> replyDtoList(Long postid) {
 
-        List<ReplyEntity> replyEntities =  replyRepository.findAll();     // 모든 엔티티 호출
+        List<ReplyEntity> replyEntities =  replyRepository.findAllBypostid(postid);     // 모든 엔티티 호출
 
         List<ReplyDto> replyDtos = new ArrayList<>();
 
@@ -49,6 +50,18 @@ public class ReplyService {
     // U : 리플 업데이트
 
     // D : 리플 삭제
+    public void replydelete(Long id) {
+
+        // 1. 엔티티 찾기
+        Optional<ReplyEntity> optionalReplyEntity = replyRepository.findById(id);
+
+        // 2. 엔티티 가져오기
+        ReplyEntity entity = optionalReplyEntity.get();
+
+        // 3. 삭제 처리
+        replyRepository.delete(entity);
+
+    }
 
 
 }

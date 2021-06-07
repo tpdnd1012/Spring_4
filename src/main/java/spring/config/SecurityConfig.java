@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoringAntMatchers("/memberupdate") // 회원수정
                 .ignoringAntMatchers("/replywrite") // 댓글입력
 
-             .and()
+/*             .and()
                 .exceptionHandling()//  예외 발생했을 경우 처리
-                .accessDeniedPage("/error") // 예외 페이지 설정
+                .accessDeniedPage("/error") // 예외 페이지 설정*/
 
              .and()
                     .oauth2Login()
