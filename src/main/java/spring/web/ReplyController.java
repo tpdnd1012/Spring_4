@@ -23,6 +23,8 @@ public class ReplyController {
 
         re.addAttribute("id", replyDto.getPostid());
 
+        re.addAttribute("count", -1);
+
         return "redirect:/postview";
 
     }

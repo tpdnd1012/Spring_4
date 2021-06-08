@@ -63,10 +63,10 @@ public class PostController {
 
     // 4. 게시물 상세페이지 요청
     @RequestMapping(value = "/postview", method = RequestMethod.GET)
-    public String postview(@RequestParam("id") Long id, Model model ) {
+    public String postview(@RequestParam("id") Long id, Model model, @RequestParam("count") int count ) {
                             // 경로(url) 상에 변수 가져오기
         // 조회수 처리
-        postService.countup(id);
+        if(count != -1) postService.countup(id);
 
         // 해당 게시물 출력
         PostDto postDto = postService.postget( id );

@@ -71,14 +71,14 @@ public class PostService {
     }
 
     // 3. 게시물 개별 출력
-    public PostDto postget( Long id ){
+    public PostDto postget( Long id ) {
 
         // 1. 해당 id의 엔티티 찾기
-        Optional<PostEntity> optionalPostEntity
-                =  postRepository.findById(id);
+        Optional<PostEntity> optionalPostEntity =  postRepository.findById(id);
+
         // 2. 엔티티를 가져오기
-        PostEntity postEntity
-                = optionalPostEntity.get();
+        PostEntity postEntity = optionalPostEntity.get();
+
         // 3. dto 변환
         return PostDto.builder()
                 .id( postEntity.getId() )
@@ -87,6 +87,7 @@ public class PostService {
                 .name(postEntity.getName() )
                 .createDate( postEntity.getCreateDate() )
                 .count( postEntity.getCount() ).build();
+
     }
 
     // 4. 조회수 처리
