@@ -37,6 +37,8 @@ public class ReplyController {
 
         re.addAttribute("id", postid);
 
+        re.addAttribute("count", -1);
+
         return "redirect:/postview";
 
     }
